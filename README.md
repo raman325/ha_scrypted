@@ -84,4 +84,7 @@ pytest
 # Run linting and formatting checks
 ruff check .
 ruff format --check .
+
+# Syntax-check the panel's browser JavaScript (requires Node)
+node scripts/check_panel_js.mjs
 ```

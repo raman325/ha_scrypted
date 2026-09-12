@@ -1,0 +1,35 @@
+---
+name: Panel JavaScript
+
+# The Python lint workflow filters on **.py, so changes to the panel's browser
+# JavaScript would otherwise run no check at all.
+# yamllint disable-line rule:truthy
+on:
+  push:
+    branches: [main]
+    paths:
+      - "custom_components/scrypted/**.js"
+      - "custom_components/scrypted/**.html"
+      - "scripts/check_panel_js.mjs"
+      - ".github/workflows/panel.yaml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "custom_components/scrypted/**.js"
+      - "custom_components/scrypted/**.html"
+      - "scripts/check_panel_js.mjs"
+      - ".github/workflows/panel.yaml"
+
+jobs:
+  syntax:
+    name: Panel JavaScript syntax
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Syntax-check panel JavaScript
+        run: node scripts/check_panel_js.mjs
